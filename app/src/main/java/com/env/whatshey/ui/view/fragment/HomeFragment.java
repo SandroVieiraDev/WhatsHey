@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.env.whatshey.R;
 import com.env.whatshey.base.BaseFragment;
+import com.env.whatshey.helper.DateCustom;
 import com.env.whatshey.ui.view.binding.HomeFragmentViewBinding;
 import com.env.whatshey.util.MaskEditUtil;
 
@@ -78,6 +79,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     protected void init() {
         binding.linearSend.setOnClickListener(this);
         binding.editText.addTextChangedListener(MaskEditUtil.mask(binding.editText, "(##)#####-####"));
+        binding.textDate.setText(DateCustom.currentDate());
     }
 
     @Override
