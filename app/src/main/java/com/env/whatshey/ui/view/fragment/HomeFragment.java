@@ -13,17 +13,22 @@ import android.widget.Toast;
 
 import com.env.whatshey.R;
 import com.env.whatshey.base.BaseFragment;
+import com.env.whatshey.data.ServiceHey;
 import com.env.whatshey.helper.DateCustom;
 import com.env.whatshey.ui.view.binding.HomeFragmentViewBinding;
 import com.env.whatshey.util.MaskEditUtil;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, Observer {
     private HomeFragmentViewBinding binding;
+    private ServiceHey serviceHey;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,23 +82,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void init() {
+        serviceHey = new ServiceHey();
+        serviceHey.addObserver(this);
         binding.linearSend.setOnClickListener(this);
-        binding.editText.addTextChangedListener(MaskEditUtil.mask(binding.editText, "(##)#####-####"));
+        binding.editText.addTextChangedListener(MaskEditUtil.mask(binding.editText, MaskEditUtil.FORMAT_FONE));
         binding.textDate.setText(DateCustom.currentDate());
     }
 
     @Override
     public void onClick(View view) {
         String textNumber = binding.editText.getText().toString();
-        if(textNumber.length() < 14){
-            msg("Digite um número de telefone válido");
-        } else {
-            startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("whatsapp://send?phone=+55" + textNumber)));
+        serviceHey.openChat(textNumber);
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        if (o instanceof String){
+            msg((String) o);
+        } else if (o instanceof Intent){
+            startActivity((Intent) o);
         }
     }
 
     public void msg(String s){
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
-
 }
