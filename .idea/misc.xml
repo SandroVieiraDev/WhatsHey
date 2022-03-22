@@ -3,15 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_chat_receiver.xml" value="0.1175" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_chat_sender.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_date.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_message.xml" value="0.198" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_send.xml" value="0.198" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_splash.xml" value="0.198" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/ic_clear_all.xml" value="0.1175" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/ic_share.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_receiver.xml" value="0.5" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_sender.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/fragment_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
-        <entry key="..\:/SANDRO/AndroidStudio/Git/WhatsHey/app/src/main/res/layout/fragment_home.xml" value="0.358695652173913" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/menu/menu_home.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

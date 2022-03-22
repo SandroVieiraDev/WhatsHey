@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="?attr/actionBarSize"
     tools:context=".ui.view.fragment.HomeFragment">
-
-    <include layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +15,11 @@
         android:background="@color/beige"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -29,6 +27,7 @@
                 android:layout_marginTop="6dp"
                 android:paddingVertical="5dp"
                 android:paddingHorizontal="8dp"
+                android:layout_gravity="center_horizontal"
                 android:elevation="1dp"
                 android:background="@drawable/circle_date"
                 android:orientation="horizontal">
@@ -43,8 +42,12 @@
                     android:textSize="13sp"/>
             </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +93,7 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/ic_send"/>
+                    android:src="@drawable/ic_baseline_send"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -1,38 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/frameToolbar"
+<FrameLayout android:id="@+id/frameToolbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/green">
+    android:elevation="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:minHeight="?attr/actionBarSize"/>
+        android:background="@color/green"
+        app:titleTextColor="@color/white"
+        android:minHeight="?attr/actionBarSize">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+    </androidx.appcompat.widget.Toolbar>
 
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:padding="14dp"
-            android:src="@drawable/icon"
-            android:layout_gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:fontFamily="@font/google_sans_bold"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:textColor="@color/white" />
-    </LinearLayout>
 
 </FrameLayout>

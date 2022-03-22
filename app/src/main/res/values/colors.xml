@@ -4,7 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#FF008069</color>
     <color name="green_light">#FF00A884</color>
+    <color name="green_sender">#FFE7FFDB</color>
     <color name="gray_light">#FFF7F7F7</color>
     <color name="gray_dark">#FF57646C</color>
     <color name="beige">#FFEFE6DD</color>
+    <color name="blue">#5500D1E1</color>
 </resources>
