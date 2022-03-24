@@ -5,6 +5,6 @@
     <string name="delete">Apagar</string>
     <string name="share">Compartilhar</string>
     <string name="send">Encaminhar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yesterday">Ontem</string>
+
 </resources>

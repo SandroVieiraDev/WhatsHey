@@ -14,7 +14,7 @@ import com.env.whatshey.base.BaseViewBinding;
 
 public class HomeFragmentViewBinding extends BaseViewBinding {
     public EditText editText;
-    public LinearLayout linearSend;
+    public LinearLayout linearSend, linearDate;
     public TextView textDate;
     public RecyclerView recyclerView;
 
@@ -27,6 +27,7 @@ public class HomeFragmentViewBinding extends BaseViewBinding {
     protected void initViews() {
         editText = find(R.id.editText);
         linearSend = find(R.id.linearSend);
+        linearDate = find(R.id.linearDate);
         textDate = find(R.id.textDate);
         recyclerView = find(R.id.recylerView);
     }

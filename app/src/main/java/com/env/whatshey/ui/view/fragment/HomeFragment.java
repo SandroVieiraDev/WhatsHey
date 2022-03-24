@@ -2,14 +2,18 @@ package com.env.whatshey.ui.view.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +37,7 @@ import com.env.whatshey.util.MaskEditUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -118,7 +123,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         serviceHey.addObserver(this);
         binding.linearSend.setOnClickListener(this);
         binding.editText.addTextChangedListener(MaskEditUtil.mask(binding.editText, MaskEditUtil.FORMAT_FONE));
-        binding.textDate.setText(DateCustom.getCurrentDate());
+
 
         preferences = new HistoricPreferences(getContext());
         if(preferences.loadHistoric() != null){
@@ -151,11 +156,40 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         }
         ));
 
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                int position = ((LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
+                long time = historicList.get(position).getTime();
+
+                if(DateCustom.getCurrentDate().equals(DateCustom.getDateCompare(time))) {
+                    binding.linearDate.setVisibility(View.GONE);
+                } else if (DateCustom.getYesterday().equals(DateCustom.getDateCompare(time))){
+                    binding.textDate.setText(getString(R.string.yesterday));
+                    binding.linearDate.setVisibility(View.VISIBLE);
+                } else {
+                    binding.textDate.setText(DateCustom.getDate(time));
+                    binding.linearDate.setVisibility(View.VISIBLE);
+                }
+
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+        });
+
     }
+
 
     @Override
     public void onClick(View view) {
         String textNumber = binding.editText.getText().toString();
+        binding.editText.setText("");
         serviceHey.addHistoric(getActivity(), textNumber);
         serviceHey.openChat(textNumber);
 

@@ -22,6 +22,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
@@ -30,7 +31,9 @@
                 android:layout_gravity="center_horizontal"
                 android:elevation="1dp"
                 android:background="@drawable/circle_date"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/textDate"
@@ -78,7 +81,7 @@
                     android:textColorHint="@color/gray_dark"
                     android:textColor="@color/black"
                     android:background="@color/white"
-                    android:inputType="phone" />
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
