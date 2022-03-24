@@ -1,5 +1,6 @@
 package com.env.whatshey.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +21,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     private int intBackground = -1;
     private static final int SENDER     = 0;
     private static final int RECEIVER  = 1;
+    private static final int DATE  = 2;
 
     public HomeAdapter(List<Historic> historicList) {
         this.historicList = historicList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void notifyList(List<Historic> list){
         this.historicList = list;
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setIntBackground(int background){
         this.intBackground = background;
         notifyDataSetChanged();
@@ -38,7 +42,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewHolder = null;
+        View viewHolder;
         if (viewType == SENDER){
             viewHolder = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_sender, parent, false);
@@ -80,8 +84,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView textNumber, textDate;
-        private LinearLayout linearLayout;
+        private final TextView textNumber;
+        private final TextView textDate;
+        private final LinearLayout linearLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,4 +95,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             textDate = itemView.findViewById(R.id.textDateSender);
         }
     }
+
+    public class ViewHolderDate extends RecyclerView.ViewHolder {
+        private final TextView textAdapterDate;
+
+        public ViewHolderDate(@NonNull View itemView) {
+            super(itemView);
+            textAdapterDate = itemView.findViewById(R.id.textAdapterDate);
+        }
+    }
+
+
 }

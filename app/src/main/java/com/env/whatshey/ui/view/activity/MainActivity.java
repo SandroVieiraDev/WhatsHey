@@ -1,29 +1,27 @@
 package com.env.whatshey.ui.view.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-
 import com.env.whatshey.R;
+import com.env.whatshey.databinding.ActivityMainBinding;
 import com.env.whatshey.ui.view.fragment.SplashFragment;
 
-public class MainActivity extends AppCompatActivity {
+import br.kleberf65.androidutils.base.BaseBindingActivity;
+
+public class MainActivity extends BaseBindingActivity<ActivityMainBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        init();
+    public int getLayout() {
+        return R.layout.activity_main;
     }
 
-    private void init(){
-        SplashFragment splashFragment = new SplashFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout, splashFragment).commit();
-    }
+    @Override
+    public void initializeUi() {
+        setSupportActionBar(findViewById(R.id.toolbar));
+        if (getSupportActionBar() != null) {
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().hide();
+        }
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, new SplashFragment()).commit();
+    }
 }

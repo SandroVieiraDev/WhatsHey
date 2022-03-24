@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:title="@string/clear_all"
-        android:icon="@drawable/ic_clear_all"
-        app:showAsAction="always"
-        android:id="@+id/menuDeleteAll"/>
-
-    <item
-        android:title="@string/delete"
+        android:id="@+id/menuDelete"
         android:icon="@drawable/ic_delete"
+        android:title="@string/delete"
         app:showAsAction="always"
-        android:id="@+id/menuDelete"/>
+        tools:ignore="AlwaysShowAction" />
 
     <item
-        android:title="@string/share"
+        android:id="@+id/menuShare"
         android:icon="@drawable/ic_send"
-        app:showAsAction="always"
-        android:id="@+id/menuShare"/>
+        android:title="@string/share"
+        app:showAsAction="always" />
 
     <item
-        android:title="@string/send"
+        android:id="@+id/menuSend"
         android:icon="@drawable/ic_baseline_send"
-        app:showAsAction="always"
-        android:id="@+id/menuSend"/>
-
+        android:title="@string/send"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuDeleteAll"
+        android:icon="@drawable/ic_clear_all"
+        android:title="@string/clear_all"
+        app:showAsAction="never" />
 
 </menu>
