@@ -4,7 +4,9 @@
     <string name="clear_all">Limpar histórico</string>
     <string name="delete">Apagar</string>
     <string name="share">Compartilhar</string>
+    <string name="share_app">Compartilhar App</string>
     <string name="send">Encaminhar</string>
     <string name="yesterday">Ontem</string>
+    <string name="phone_invalid_message">Digite um número de telefone válido</string>
 
 </resources>

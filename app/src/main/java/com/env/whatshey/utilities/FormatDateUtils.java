@@ -1,9 +1,12 @@
-package com.env.whatshey.util;
+package com.env.whatshey.utilities;
 
 
+import android.annotation.SuppressLint;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class DateUtils {
+public class FormatDateUtils {
 
     public static String getDateMessage(long neededtimemillis) {
         Calendar nowTime = Calendar.getInstance();
@@ -55,5 +58,10 @@ public class DateUtils {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp);
         return c.get(Calendar.DAY_OF_MONTH) + " de " + meses[c.get(Calendar.MONTH)] + " de " + c.get(Calendar.YEAR);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getHours(long millis) {
+        return new SimpleDateFormat("HH:mm").format(millis);
     }
 }

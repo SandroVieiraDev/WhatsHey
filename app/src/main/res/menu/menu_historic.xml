@@ -27,4 +27,10 @@
         android:title="@string/clear_all"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menuShareApp"
+        android:icon="@drawable/ic_clear_all"
+        android:title="@string/share_app"
+        app:showAsAction="never" />
+
 </menu>

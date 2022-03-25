@@ -1,16 +1,13 @@
-package com.env.whatshey.helper;
+package com.env.whatshey.ui.historic;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.env.whatshey.model.Historic;
-import com.env.whatshey.util.GsonToList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,16 +20,14 @@ public class HistoricPreferences {
     private final String HISTORIC_KEY = "historic.key";
 
     public HistoricPreferences(Context context) {
-        preferences = context.getSharedPreferences("historic.preferences", 0);
+        preferences = context.getSharedPreferences("historic.preferences", Context.MODE_PRIVATE);
         editor = preferences.edit();
     }
 
-    public void clear() {
-        editor.clear().apply();
-    }
-
-    public void saveHistoric(List<Historic> historicList) {
-        editor.putString(HISTORIC_KEY, GsonToList.historicToString(historicList)).apply();
+    public void addToHistoric(Historic historic) {
+        List<Historic> historicList = loadHistoric();
+        historicList.add(historic);
+        editor.putString(HISTORIC_KEY, gson.toJson(historicList)).apply();
     }
 
     public List<Historic> loadHistoric() {
@@ -42,9 +37,7 @@ public class HistoricPreferences {
                 }.getType()));
     }
 
-    public void addToHistoric(Historic historic) {
-        List<Historic> historicList = loadHistoric();
-        historicList.add(historic);
-        editor.putString(HISTORIC_KEY, gson.toJson(historicList)).apply();
+    public void clear() {
+        editor.clear().apply();
     }
 }

@@ -4,19 +4,19 @@
 
     <LinearLayout
         android:id="@+id/linearReceiver"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
         android:layout_marginHorizontal="8dp"
-        android:padding="2dp"
-        android:gravity="left">
+        android:layout_marginVertical="4dp"
+        android:orientation="vertical"
+        android:padding="2dp">
 
         <LinearLayout
+            android:id="@+id/chat_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@drawable/circle_chat_receiver"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <TextView
@@ -24,9 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_regular"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                tools:text="HEY, GOOD MORNING.."
-                android:textColor="@color/black" />
+                tools:text="HEY, GOOD MORNING.." />
 
             <TextView
                 android:id="@+id/textDateReceiver"

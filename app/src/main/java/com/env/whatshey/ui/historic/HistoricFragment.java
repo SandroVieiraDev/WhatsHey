@@ -1,5 +1,10 @@
-package com.env.whatshey.ui.view.fragment;
+package com.env.whatshey.ui.historic;
 
+import static com.env.whatshey.utilities.MaskEditUtils.unmask;
+
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,11 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.env.whatshey.R;
-import com.env.whatshey.adapter.HistoricAdapter;
 import com.env.whatshey.databinding.FragmentHistoricBinding;
-import com.env.whatshey.helper.HistoricPreferences;
-import com.env.whatshey.model.Historic;
-import com.env.whatshey.util.MaskEditUtil;
+import com.env.whatshey.utilities.MaskEditUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +26,9 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
     private HistoricPreferences historicPreferences;
     private HistoricAdapter historicAdapter;
     private final int[] menuItemsIds = new int[]{R.id.menuDelete, R.id.menuSend,
-            R.id.menuShare, R.id.menuDeleteAll};
+            R.id.menuShare, R.id.menuDeleteAll, R.id.menuShareApp};
     private final MenuItem[] menuItems = new MenuItem[menuItemsIds.length];
     private boolean isDeleteAllVisible = true;
-
 
     public int getLayout() {
         return R.layout.fragment_historic;
@@ -60,20 +61,24 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         historicAdapter.setHistoricClickListener(new HistoricAdapter.ClickListener() {
             @Override
             public void onItemClick(Historic historic) {
-                showMessage(historic.getNumber());
+                openChat(historic.getWhatsNumber());
             }
 
             @Override
-            public void onItemLongClick(Historic historic) {
-                if (isDeleteAllVisible) showOptionMenu();
+            public void onItemLongClick(int position, Historic historic) {
+                if (isDeleteAllVisible) {
+                    historic.setItemSelected(true);
+                    historicAdapter.notifyItemChanged(position, historic);
+                    showOptionMenu();
+                }
             }
         });
         hideLoadingContentView();
     }
 
     private void setupInputAndSender() {
-        binding.editSend.addTextChangedListener(MaskEditUtil.mask(binding.editSend,
-                MaskEditUtil.FORMAT_FONE));
+        binding.editSend.addTextChangedListener(MaskEditUtils.mask(binding.editSend,
+                MaskEditUtils.FORMAT_FONE));
         binding.imgSender.setOnClickListener(view -> addToHistoric());
     }
 
@@ -81,8 +86,10 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (!isDeleteAllVisible) showOptionMenu();
-                else {
+                if (!isDeleteAllVisible) {
+                    showOptionMenu();
+                    historicAdapter.cleanSelectedHistoric();
+                } else {
                     this.remove();
                     requireActivity().onBackPressed();
                 }
@@ -91,17 +98,19 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
     }
 
     private void addToHistoric() {
-        long timeMillis = System.currentTimeMillis();
-        Historic historic = new Historic.Builder()
-                .setId(UUID.randomUUID().toString())
-                .setNumber(binding.editSend.getText().toString())
-                .setTime(timeMillis)
-                .build();
-        historicPreferences.addToHistoric(historic);
-        historicAdapter.addData(historic);
-        binding.rvHistoric.smoothScrollToPosition(historicAdapter.getItemCount() - 1);
-        binding.editSend.setText(null);
-
+        String number = binding.editSend.getText().toString();
+        if (number.length() < 14) {
+            showMessage(getString(R.string.phone_invalid_message));
+        } else {
+            long timeMillis = System.currentTimeMillis();
+            Historic historic = new Historic(UUID.randomUUID().toString(), timeMillis,
+                    Historic.TYPE_CHAT_RIGHT, number);
+            historicPreferences.addToHistoric(historic);
+            historicAdapter.addData(historic);
+            binding.rvHistoric.smoothScrollToPosition(historicAdapter.getItemCount() - 1);
+            openChat(number);
+            binding.editSend.setText(null);
+        }
     }
 
     private void showOptionMenu() {
@@ -110,11 +119,31 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         }
         isDeleteAllVisible = !isDeleteAllVisible;
         menuItems[menuItems.length - 1].setVisible(isDeleteAllVisible);
+        menuItems[menuItems.length - 2].setVisible(isDeleteAllVisible);
+    }
+
+    private void openChat(String number) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW)
+                    .setData(Uri.parse("whatsapp://send?phone=+55" + unmask(number))));
+        } catch (ActivityNotFoundException e) {
+            showMessage(e.getMessage());
+        }
+    }
+
+    private void shareNumber(String number) {
+        try {
+            startActivity(new Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT, unmask(number)));
+        } catch (ActivityNotFoundException e) {
+            showMessage(e.getMessage());
+        }
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu actionMenu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_home, actionMenu);
+        inflater.inflate(R.menu.menu_historic, actionMenu);
         for (int i = 0; i < menuItemsIds.length; i++) {
             menuItems[i] = actionMenu.findItem(menuItemsIds[i]);
             menuItems[i].setVisible(i == menuItemsIds.length - 1);
@@ -123,10 +152,21 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menuDeleteAll) {
-            historicPreferences.clear();
-            historicAdapter.clean();
+        switch (item.getItemId()) {
+            case R.id.menuDeleteAll:
+                historicPreferences.clear();
+                historicAdapter.clean();
+                break;
+            case R.id.menuSend:
+
+                break;
+            case R.id.menuShare:
+
+                break;
+            case R.id.menuDelete:
+
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

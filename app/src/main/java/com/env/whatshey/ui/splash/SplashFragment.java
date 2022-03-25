@@ -1,9 +1,10 @@
-package com.env.whatshey.ui.view.fragment;
+package com.env.whatshey.ui.splash;
 
 import android.os.Handler;
 
 import com.env.whatshey.R;
 import com.env.whatshey.databinding.FragmentSplashBinding;
+import com.env.whatshey.ui.historic.HistoricFragment;
 
 import br.kleberf65.androidutils.base.BaseBindingFragment;
 

@@ -1,10 +1,10 @@
-package com.env.whatshey.util;
+package com.env.whatshey.utilities;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-public abstract class MaskEditUtil {
+public abstract class MaskEditUtils {
 
     public static final String FORMAT_CPF = "###.###.###-##";
     public static final String FORMAT_FONE = "(##)#####-####";
@@ -19,14 +19,16 @@ public abstract class MaskEditUtil {
             String old = "";
 
             @Override
-            public void afterTextChanged(final Editable s) {}
+            public void afterTextChanged(final Editable s) {
+            }
 
             @Override
-            public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {}
+            public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+            }
 
             @Override
             public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-                final String str = MaskEditUtil.unmask(s.toString());
+                final String str = MaskEditUtils.unmask(s.toString());
                 String mascara = "";
                 if (isUpdating) {
                     old = str;
@@ -54,6 +56,6 @@ public abstract class MaskEditUtil {
     }
 
     public static String unmask(final String s) {
-        return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[ ]","").replaceAll("[:]", "").replaceAll("[)]", "");
+        return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[ ]", "").replaceAll("[:]", "").replaceAll("[)]", "");
     }
 }
