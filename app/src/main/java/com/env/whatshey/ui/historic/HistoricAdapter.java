@@ -7,6 +7,7 @@ import static com.env.whatshey.utilities.FormatDateUtils.getDateMessage;
 import static com.env.whatshey.utilities.FormatDateUtils.getHours;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,13 @@ public class HistoricAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private final List<String> sectionsDate = new ArrayList<>();
     private final List<Historic> historicList = new ArrayList<>();
-    private List<String> currentSelectedHistoric = new ArrayList<>();
+    private final List<String> currentSelectedHistoric = new ArrayList<>();
     private ClickListener listener;
+    private final HistoricPreferences historicPreferences;
+
+    public HistoricAdapter(Context requireContext) {
+        historicPreferences = new HistoricPreferences(requireContext);
+    }
 
     @NonNull
     @Override
@@ -61,12 +67,12 @@ public class HistoricAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof SenderHolder) {
             SenderHolder senderHolder = (SenderHolder) holder;
             senderHolder.bindView(historicList.get(position));
-            senderHolder.itemView.setOnClickListener(view -> {
+            senderHolder.binding.linearSender.setOnClickListener(view -> {
                 if (listener != null) {
                     listener.onItemClick(historicList.get(position));
                 }
             });
-            senderHolder.itemView.setOnLongClickListener(view -> {
+            senderHolder.binding.linearSender.setOnLongClickListener(view -> {
                 if (listener != null) {
                     currentSelectedHistoric.add(historicList.get(position).getId());
                     listener.onItemLongClick(position, historicList.get(position));
@@ -74,6 +80,7 @@ public class HistoricAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
                 return false;
             });
+
         } else {
             DateHolder dateHolder = (DateHolder) holder;
             dateHolder.bindView(getDateMessage(historicList.get(position).getTimestamp()));
@@ -131,6 +138,17 @@ public class HistoricAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.historicList.add(historic);
         }
         notifyItemRangeInserted(oldCount, this.historicList.size());
+    }
+
+    public void deleteItem(Historic historic){
+        for(int i = historicList.size() - 1; i < historicList.size(); i--){
+            if (historicList.get(i).getId().equals(historic.getId())){
+                historicList.remove(i);
+                historicPreferences.saveHistoric(historicList);
+                notifyItemRemoved(i);
+                break;
+            }
+        }
     }
 
     @Override

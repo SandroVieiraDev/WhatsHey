@@ -24,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:stackFromEnd="false"
                 tools:listitem="@layout/adapter_sender" />
 
         </FrameLayout>

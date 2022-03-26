@@ -30,6 +30,10 @@ public class HistoricPreferences {
         editor.putString(HISTORIC_KEY, gson.toJson(historicList)).apply();
     }
 
+    public void saveHistoric(List<Historic> list){
+        editor.putString(HISTORIC_KEY, gson.toJson(list)).apply();
+    }
+
     public List<Historic> loadHistoric() {
         return new ArrayList<>(gson.fromJson(
                 preferences.getString(HISTORIC_KEY, "[]"),

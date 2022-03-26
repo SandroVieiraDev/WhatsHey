@@ -46,4 +46,7 @@ dependencies {
 
     //AndroidUtils by Kleberf65
     implementation 'com.github.Kleberf65:AndroidUtils:1.0.4'
+    implementation 'com.applovin:applovin-sdk:11.3.1'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+    implementation 'com.unity3d.ads:unity-ads:4.0.0'
 }
