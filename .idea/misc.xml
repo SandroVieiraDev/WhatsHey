@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/bg_historic_item_left.xml" value="0.168" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/bg_historic_item_right.xml" value="0.168" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_chat_receiver.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_chat_sender.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_date.xml" value="0.1175" />
@@ -10,6 +12,7 @@
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_send.xml" value="0.198" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/circle_splash.xml" value="0.198" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/historic_item_selected.xml" value="0.1175" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/historic_item_unselected.xml" value="0.168" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/ic_baseline_send.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/ic_clear_all.xml" value="0.1175" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1175" />
@@ -17,6 +20,8 @@
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_date.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_historic_chat.xml" value="0.20416666666666666" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_historic_item.xml" value="0.25" />
+        <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_historic_unselected.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_receiver.xml" value="0.2" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/adapter_sender.xml" value="0.20416666666666666" />
         <entry key="..\:/SANDRO VIEIRA/APLICATIVOS/Git/WhatsHey/app/src/main/res/layout/fragment_historic.xml" value="0.20416666666666666" />

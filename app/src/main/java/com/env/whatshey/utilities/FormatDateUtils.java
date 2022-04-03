@@ -8,10 +8,10 @@ import java.util.Calendar;
 
 public class FormatDateUtils {
 
-    public static String getDateMessage(long neededtimemillis) {
+    public static String getDateMessage(long millis) {
         Calendar nowTime = Calendar.getInstance();
         Calendar neededTime = Calendar.getInstance();
-        neededTime.setTimeInMillis(neededtimemillis);
+        neededTime.setTimeInMillis(millis);
 
         if ((neededTime.get(Calendar.YEAR) == nowTime.get(Calendar.YEAR))) {
 

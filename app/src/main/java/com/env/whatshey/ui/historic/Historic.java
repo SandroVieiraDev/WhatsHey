@@ -1,61 +1,42 @@
 package com.env.whatshey.ui.historic;
 
+import android.view.Gravity;
+
 import com.env.whatshey.R;
+
+import java.util.Objects;
 
 public class Historic {
 
-    public static final int TYPE_CHAT_LEFT = 0;
-    public static final int TYPE_CHAT_RIGHT = 1;
-    public static final int TYPE_DATE_INDICATOR = 2;
-
-    private String id;
+    private ItemType type;
     private long timestamp;
-    private int historicType;
     private String whatsNumber;
     private boolean itemSelected;
+    private boolean dateVisible;
+    private int adapterPosition;
 
-    public Historic(String id, long timestamp, int historicType, String whatsNumber) {
-        this.id = id;
+    public Historic() {
+    }
+
+    public Historic(long timestamp, String whatsNumber) {
         this.timestamp = timestamp;
-        this.historicType = historicType;
         this.whatsNumber = whatsNumber;
     }
 
-    public Historic(long timestamp, int historicType) {
-        this.timestamp = timestamp;
-        this.historicType = historicType;
+    public ItemType getType() {
+        return type;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setType(ItemType type) {
+        this.type = type;
     }
 
     public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public int getHistoricType() {
-        return historicType;
-    }
-
-    public void setHistoricType(int historicType) {
-        this.historicType = historicType;
-    }
-
     public String getWhatsNumber() {
         return whatsNumber;
-    }
-
-    public void setWhatsNumber(String whatsNumber) {
-        this.whatsNumber = whatsNumber;
     }
 
     public boolean isItemSelected() {
@@ -66,7 +47,46 @@ public class Historic {
         this.itemSelected = itemSelected;
     }
 
-    public int getBackground() {
-        return itemSelected ? R.drawable.historic_item_selected : 0;
+    public boolean isDateVisible() {
+        return dateVisible;
+    }
+
+    public void setDateVisible(boolean dateVisible) {
+        this.dateVisible = dateVisible;
+    }
+
+    public int getAdapterPosition() {
+        return adapterPosition;
+    }
+
+    public void setAdapterPosition(int adapterPosition) {
+        this.adapterPosition = adapterPosition;
+    }
+
+    public int getBackgroundBubble() {
+        if (type.equals(ItemType.TYPE_CHAT_NUMBER_LEFT)) {
+            return R.drawable.bg_historic_item_left;
+        }
+        return R.drawable.bg_historic_item_right;
+    }
+
+    public int getGravity() {
+        if (type.equals(ItemType.TYPE_CHAT_NUMBER_LEFT)) {
+            return Gravity.START;
+        }
+        return Gravity.END;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Historic historic = (Historic) o;
+        return timestamp == historic.timestamp && Objects.equals(whatsNumber, historic.whatsNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, whatsNumber);
     }
 }
