@@ -5,6 +5,10 @@ import static com.env.whatshey.utilities.AppUtils.shareApplication;
 import static com.env.whatshey.utilities.AppUtils.shareNumber;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +24,12 @@ import androidx.recyclerview.selection.SelectionTracker;
 import com.env.whatshey.R;
 import com.env.whatshey.databinding.FragmentHistoricBinding;
 import com.env.whatshey.utilities.MaskEditUtils;
+import com.env.whatshey.utilities.Pic;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
 import java.util.List;
 
@@ -32,6 +42,11 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
     private SelectionTracker<Long> selectionTracker;
     private Menu actionMenu;
     private Historic selectedHistoric;
+    private RewardedAd mRewardedAd;
+    private final String ID_PREMIADO = "ca-app-pub-5364358208843672/9482861905";
+    private final String ID_TEST = "ca-app-pub-3940256099942544/5224354917";
+    private boolean adsCompleto = true;
+    //private Pic pic = new Pic(Pic.O);
 
     public int getLayout() {
         return R.layout.fragment_historic;
@@ -40,11 +55,21 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
     @Override
     public void initializeUi() {
 
+        loadAd();
         initializeVariables();
         setupLoadHistoricRecyclerView();
         setupOnBackPressedCallback();
         setupInputAndSender();
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!adsCompleto){
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, new HistoricFragment()).commit();
+        }
     }
 
     private void initializeVariables() {
@@ -53,6 +78,7 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         if (activity.getSupportActionBar() != null) {
             activity.getSupportActionBar().show();
         }
+
         historicPreferences = new HistoricPreferences(requireContext(), new HistoricPreferences.HistoricListener() {
             @Override
             public void onAddedHistoric(Historic historic) {
@@ -79,7 +105,7 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         historicAdapter = new HistoricAdapter(new HistoricAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, Historic historic) {
-                historicPreferences.addToHistoric(historic.getWhatsNumber());
+                rewardLoadList(historic);
             }
 
             @Override
@@ -109,12 +135,24 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         binding.editSend.addTextChangedListener(MaskEditUtils.mask(binding.editSend,
                 MaskEditUtils.FORMAT_FONE));
         binding.imgSender.setOnClickListener(view -> {
-            String whatsNumber = binding.editSend.getText().toString();
-            historicPreferences.addToHistoric(whatsNumber);
-            binding.editSend.setText("");
-            binding.editSend.setEnabled(false);
-            binding.editSend.setEnabled(true);
+            if(!packInstalled("com.whatsapp") ||
+            !packInstalled("com.whatsapp.w4b")){
+                rewardLoadButton();
+            } else {
+                startActivity(new Intent(Intent.ACTION_VIEW)
+                .setData(Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")));
+            }
         });
+    }
+
+    private boolean packInstalled(String pack){
+        PackageManager pm = requireContext().getPackageManager();
+        try {
+            pm.getPackageInfo(pack, android.content.pm.PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     private void setupOnBackPressedCallback() {
@@ -180,4 +218,75 @@ public class HistoricFragment extends BaseBindingFragment<FragmentHistoricBindin
         showMainMenuActions(false);
         return super.onOptionsItemSelected(item);
     }
+
+    private void loadAd(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(requireContext(), ID_PREMIADO,
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        loadAd();
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                    }
+                });
+    }
+
+    private void rewardLoadButton(){
+        adsCompleto = false;
+
+        if (mRewardedAd == null) {
+            adsCompleto = true;
+            rewardComplete();
+        } else {
+            Activity activityContext = requireActivity();
+            mRewardedAd.show(activityContext, rewardItem -> {
+                adsCompleto = true;
+                mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    loadAd();
+                    rewardComplete();
+                }
+                    });
+            });
+        }
+    }
+
+    private void rewardComplete(){
+        String whatsNumber = binding.editSend.getText().toString();
+        historicPreferences.addToHistoric(whatsNumber);
+        binding.editSend.setText("");
+        binding.editSend.setEnabled(false);
+        binding.editSend.setEnabled(true);
+    }
+
+    private void rewardLoadList(Historic historic){
+        adsCompleto = false;
+
+        if (mRewardedAd == null) {
+            rewardComplete(historic);
+        } else {
+            Activity activityContext = requireActivity();
+            mRewardedAd.show(activityContext, rewardItem -> {
+                adsCompleto = true;
+                mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        loadAd();
+                        rewardComplete(historic);
+                    }
+                });
+            });
+        }
+    }
+
+    private void rewardComplete(Historic historic){
+        historicPreferences.addToHistoric(historic.getWhatsNumber());
+    }
+
+
 }

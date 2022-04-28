@@ -4,11 +4,12 @@
     package="com.env.whatshey">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".EnvApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon_circle"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsHey">
         <activity
@@ -24,8 +25,9 @@
         </activity>
         <!-- trocar quando for implementar admob...-->
         <meta-data
-            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true" />
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6745130161320310~1912300209" />
+
     </application>
 
 </manifest>

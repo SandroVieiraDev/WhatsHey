@@ -8,5 +8,6 @@
     <string name="send">Encaminhar</string>
     <string name="yesterday">Ontem</string>
     <string name="phone_invalid_message">Digite um número de telefone válido</string>
+    <string name="id_app">ca-app-pub-5364358208843672~9814050304</string>
 
 </resources>
